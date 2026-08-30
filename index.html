@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Special Day ✦</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@400;500;600&display=swap');
+
+:root{
+  --bg:#090611; --panel:rgba(30,18,39,.72); --line:rgba(255,255,255,.14);
+  --text:#fff7ff; --muted:#d7c8da; --pink:#f3a9d1; --lav:#c9b3ff;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; min-height:100vh; color:var(--text); background:
+  radial-gradient(circle at 50% 10%,rgba(151,76,179,.28),transparent 32%),
+  radial-gradient(circle at 10% 70%,rgba(101,55,157,.18),transparent 35%),
+  var(--bg);
+  font-family:"DM Sans",sans-serif; overflow-x:hidden;
+}
+body:before{
+  content:""; position:fixed; inset:0; pointer-events:none; opacity:.55;
+  background-image:
+    radial-gradient(circle,rgba(255,255,255,.75) 0 1px,transparent 1.5px),
+    radial-gradient(circle,rgba(255,220,255,.5) 0 1px,transparent 1.5px);
+  background-size:95px 95px,145px 145px; background-position:20px 10px,60px 45px;
+}
+.hidden{display:none!important}
+section{min-height:100vh; padding:70px 22px; display:flex; align-items:center; justify-content:center; position:relative}
+.wrap{width:min(900px,100%); text-align:center}
+.kicker{font-size:.72rem; letter-spacing:.35em; text-transform:uppercase; color:#ead6ee; opacity:.85}
+h1,h2,h3{font-family:"Cormorant Garamond",serif; margin:12px 0}
+h1{font-size:clamp(3.2rem,11vw,7rem); line-height:.88; font-weight:500}
+h2{font-size:clamp(2.4rem,7vw,4.8rem); font-weight:500}
+p{color:var(--muted); line-height:1.8}
+.card{
+  background:linear-gradient(145deg,rgba(55,33,65,.78),rgba(20,13,29,.7));
+  border:1px solid var(--line); border-radius:24px; padding:30px;
+  box-shadow:0 24px 80px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.05);
+  backdrop-filter:blur(14px);
+}
+button{
+  border:1px solid rgba(255,255,255,.2); color:white; cursor:pointer;
+  background:rgba(255,255,255,.08); padding:13px 24px; border-radius:999px;
+  font:500 .86rem "DM Sans",sans-serif; transition:.25s;
+}
+button:hover{transform:translateY(-2px);background:rgba(255,255,255,.14)}
+.primary{background:linear-gradient(90deg,rgba(237,158,205,.8),rgba(184,154,255,.78)); color:#180d1c; border:0}
+.countdown{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:35px auto;max-width:560px}
+.time{padding:17px 8px;border:1px solid var(--line);border-radius:16px;background:rgba(255,255,255,.055)}
+.time strong{display:block;font:600 clamp(1.5rem,5vw,2.3rem) "Cormorant Garamond",serif}
+.time span{font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:#cdbbd2}
+.arrow{display:block;margin:55px auto 0;opacity:.6;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase}
+.gift{font-size:4rem; margin:15px 0 20px; filter:drop-shadow(0 0 25px rgba(245,173,220,.35)); animation:float 3s ease-in-out infinite}
+@keyframes float{50%{transform:translateY(-7px)}}
+.letter{text-align:left;max-width:720px;margin:auto}
+.letter p{font-size:1rem}
+.signature{text-align:right;margin-top:35px;font:500 1.8rem "Cormorant Garamond",serif;color:#fff}
+.nav{position:fixed;z-index:10;right:18px;top:18px;display:flex;gap:7px}
+.nav button{padding:8px 12px;font-size:.72rem}
+.lock{
+  position:fixed;inset:0;z-index:100;background:
+  radial-gradient(circle at 50% 35%,rgba(142,76,170,.28),transparent 35%),#08050c;
+  display:flex;align-items:center;justify-content:center;padding:25px;text-align:center
+}
+.lockbox{max-width:620px}
+.lockbox .mini{font-size:3rem}
+.unlock-note{margin-top:18px;font-size:.82rem;color:#bcaabd}
+footer{padding:30px;text-align:center;color:#897b8e;font-size:.72rem;letter-spacing:.12em}
+@media(max-width:600px){
+  section{padding:55px 17px}
+  .card{padding:24px 18px;border-radius:20px}
+  .countdown{gap:7px}.time{padding:13px 4px}
+  .nav{display:none}
+}
+</style>
+</head>
+<body>
+
+<div id="lock" class="lock">
+  <div class="lockbox">
+    <div class="mini">✦</div>
+    <div class="kicker">A little something is waiting for you</div>
+    <h2>Her Special Day</h2>
+    <p>This page is sealed until <b>August 31, 2026</b>.</p>
+    <div class="countdown" id="countdown">
+      <div class="time"><strong id="d">00</strong><span>Days</span></div>
+      <div class="time"><strong id="h">00</strong><span>Hours</span></div>
+      <div class="time"><strong id="m">00</strong><span>Minutes</span></div>
+      <div class="time"><strong id="s">00</strong><span>Seconds</span></div>
+    </div>
+    <div class="unlock-note">Come back when the clock reaches midnight. ♡</div>
+  </div>
+</div>
+
+<div id="site" class="hidden">
+  <div class="nav">
+    <button onclick="go('special')">Special Day</button>
+    <button onclick="go('birthday')">Birthday</button>
+    <button onclick="go('letter')">Letter</button>
+  </div>
+
+  <section id="special">
+    <div class="wrap">
+      <div class="kicker">August 31, 2026</div>
+      <h1>Your<br><em>Special Day</em></h1>
+      <p>A small corner of the internet made especially for you.</p>
+      <div class="card" style="max-width:620px;margin:30px auto">
+        <div class="gift">🎁</div>
+        <div class="kicker">open when you're ready</div>
+        <h3 style="font-size:2rem">There's something inside.</h3>
+        <p>Take your time. Scroll down, and let this little gift unfold.</p>
+        <button class="primary" onclick="go('birthday')">Open your gift ✦</button>
+      </div>
+      <span class="arrow">scroll for more ↓</span>
+    </div>
+  </section>
+
+  <section id="birthday">
+    <div class="wrap">
+      <div class="kicker">for you, on your day</div>
+      <h2>Happy Birthday</h2>
+      <div class="card letter">
+        <p>To the birthday girl,</p>
+        <p>
+          I hope today reminds you of how much light you bring into the lives
+          of the people around you. You deserve a day filled with the little
+          things that make you smile, the people who make you feel loved, and
+          moments that you will carry with you for a long time.
+        </p>
+        <p>
+          Thank you for being you. I hope this next chapter is kind to you,
+          full of new memories, unexpected happiness, and reasons to be proud
+          of how far you've come.
+        </p>
+        <p>
+          Most of all, I hope you know that you are appreciated more than you
+          probably realize.
+        </p>
+        <div class="signature">♡</div>
+      </div>
+      <button style="margin-top:28px" onclick="go('letter')">There's one more thing →</button>
+    </div>
+  </section>
+
+  <section id="letter">
+    <div class="wrap">
+      <div class="kicker">a final little note</div>
+      <h2>For You</h2>
+      <div class="card letter">
+        <p>
+          If you've made it this far, then I guess I get to say the part that
+          doesn't fit neatly anywhere else.
+        </p>
+        <p>
+          I made this because an ordinary birthday greeting didn't feel like
+          enough. I wanted you to have something you could open and know that
+          somebody took the time to make a whole little world just for you.
+        </p>
+        <p>
+          So, happy birthday. I hope you have the loveliest day, and I hope
+          this small gift makes you smile, even just a little.
+        </p>
+        <p>
+          May this year bring you closer to the things you've been hoping for.
+          And whenever you look back on this day, I hope you remember that
+          someone was cheering for you.
+        </p>
+        <div class="signature">From Nepretty ♡</div>
+      </div>
+    </div>
+  </section>
+
+  <footer>made with a little bit of love · August 31, 2026</footer>
+</div>
+
+<script>
+const unlock = new Date("2026-08-31T00:00:00+08:00").getTime();
+const lock = document.getElementById("lock");
+const site = document.getElementById("site");
+
+function update(){
+  const now = Date.now(), diff = unlock-now;
+  if(diff <= 0){
+    lock.classList.add("hidden");
+    site.classList.remove("hidden");
+    return;
+  }
+  const days=Math.floor(diff/86400000);
+  const hours=Math.floor(diff%86400000/3600000);
+  const mins=Math.floor(diff%3600000/60000);
+  const secs=Math.floor(diff%60000/1000);
+  d.textContent=String(days).padStart(2,"0");
+  h.textContent=String(hours).padStart(2,"0");
+  m.textContent=String(mins).padStart(2,"0");
+  s.textContent=String(secs).padStart(2,"0");
+}
+update(); setInterval(update,1000);
+
+function go(id){
+  document.getElementById(id).scrollIntoView({behavior:"smooth"});
+  burst();
+}
+function burst(){
+  for(let i=0;i<18;i++){
+    const x=document.createElement("span");
+    x.textContent=["✦","♡","·","✧"][Math.floor(Math.random()*4)];
+    x.style.position="fixed";x.style.left=(40+Math.random()*20)+"%";x.style.top="45%";
+    x.style.zIndex=999;x.style.pointerEvents="none";
+    x.style.fontSize=(12+Math.random()*18)+"px";
+    x.style.color=["#f3a9d1","#c9b3ff","#fff"][Math.floor(Math.random()*3)];
+    document.body.appendChild(x);
+    const dx=(Math.random()-.5)*260, dy=-(80+Math.random()*240);
+    x.animate([{transform:"translate(0,0)",opacity:1},{transform:`translate(${dx}px,${dy}px)`,opacity:0}],{duration:1000+Math.random()*600,easing:"ease-out"}).onfinish=()=>x.remove();
+  }
+}
+</script>
+</body>
+</html>
